@@ -1,0 +1,85 @@
+<form theme="dark">
+  <label>Searching for Searches</label>
+  <fieldset submitButton="true">
+    <input type="text" token="search_input">
+      <label>Search for field here:</label>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Dashboards</title>
+      <single>
+        <search>
+          <query>| rest splunk_server=local /servicesNS/-/-/data/ui/views | search eai:data="*$search_input$*" | stats count</query>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="height">285</option>
+        <option name="rangeColors">["0xdc4e41","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>a
+        <drilldown>
+          <set token="peekaboo">| rest splunk_server=local /servicesNS/-/-/data/ui/views | search eai:data="*$search_input$*" | rename author AS Author eai:acl.sharing AS Permissions eai:appName AS App eai:data AS "Dashboard XML" | fields Author Permissions App "Dashboard XML"</set>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <title>Saved Searches</title>
+      <single>
+        <search>
+          <query>| rest splunk_server=local /services/saved/searches | search search="*$search_input$*" | stats count</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="height">285</option>
+        <option name="rangeColors">["0xdc4e41","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <set token="peekaboo">| rest splunk_server=local /services/saved/searches | search search="*$search_input$*" | rename eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App search AS "Saved Search" | fields Author Permissions App "Saved Search"</set>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <title>Event Types</title>
+      <single>
+        <search>
+          <query>| rest splunk_server=local /servicesNS/-/-/saved/eventtypes | search search="*$search_input$*" | stats count</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="height">285</option>
+        <option name="rangeColors">["0xdc4e41","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <set token="peekaboo">| rest splunk_server=local /servicesNS/-/-/saved/eventtypes | search search="*$search_input$*" | rename eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App search AS "Event Type" | fields Author Permissions App "Event Type"</set>
+        </drilldown>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel depends="$peekaboo$">
+      <table>
+        <search>
+          <query>$peekaboo$</query>
+          <earliest>-24h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <unset token="peekaboo"></unset>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+</form>
