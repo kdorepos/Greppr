@@ -2,7 +2,7 @@
   <label>Searching for Searches</label>
   <fieldset submitButton="true">
     <input type="text" token="search_input">
-      <label>Search for field here:</label>
+      <label>Input search field here:</label>
     </input>
   </fieldset>
   <row>
