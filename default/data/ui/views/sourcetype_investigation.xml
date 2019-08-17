@@ -1,0 +1,56 @@
+<form theme="dark">
+  <label>Sourcetype Investigation</label>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="sourcetype">
+      <label>Choose Sourcetype:</label>
+      <fieldForLabel>sourcetype</fieldForLabel>
+      <fieldForValue>sourcetype</fieldForValue>
+      <search ref="Real-time List of Sourcetypes"></search>
+    </input>
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Ad-Hoc Searches</title>
+      <single>
+        <search>
+          <query>index=_audit action=search info=granted search="$sourcetype$" savedsearch_name="" | dedup apiStartTime | stats dc(search)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="height">250</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Saved Searches</title>
+      <single>
+        <search>
+          <query>index=_audit action=search info=granted search="$sourcetype$" | dedup apiStartTime | stats dc(savedsearch_name)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="height">250</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Bucket Size</title>
+      <single>
+        <search>
+          <query>index=_internal source=*license_usage.log type=Usage st="$sourcetype$" | stats sum(b) AS usedGB | eval bucketSize = round(usedGB/1024/1024/1024,3) | fields bucketSize</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="height">250</option>
+      </single>
+    </panel>
+  </row>
+</form>

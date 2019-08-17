@@ -1,0 +1,11 @@
+<nav search_view="search">
+  <view name="search_field_investigation" default='true' />
+  <view name="sourcetype_investigation" />
+  <collection label="Etc.">
+    <view name="search" />
+    <view name="datasets" />
+    <view name="reports" />
+    <view name="alerts" />
+    <view name="dashboards" />
+  </collection>
+</nav>
