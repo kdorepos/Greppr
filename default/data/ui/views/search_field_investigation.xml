@@ -1,5 +1,5 @@
 <form theme="dark">
-  <label>Searching for Searches</label>
+  <label>Search Field Investigation</label>
   <fieldset submitButton="true">
     <input type="text" token="search_input">
       <label>Input search field:</label>
@@ -71,7 +71,6 @@
     </panel>
   </row>
   <row>
-    <!--Here is said hidden panel-->
     <panel depends="$peekaboo$">
       <table>
         <search>

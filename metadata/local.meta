@@ -1,0 +1,24 @@
+[app/ui]
+version = 7.3.1
+modtime = 1566007695.107720000
+
+[app/launcher]
+version = 7.3.1
+modtime = 1566007695.109852000
+
+[views/search_field_investigation]
+owner = admin
+version = 7.3.1
+modtime = 1566007845.030533000
+
+[views/sourcetype_investigation]
+owner = admin
+version = 7.3.1
+modtime = 1566008982.966244000
+
+[savedsearches/Real-time%20List%20of%20Sourcetypes]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = admin
+version = 7.3.1
+modtime = 1566008628.230325000
