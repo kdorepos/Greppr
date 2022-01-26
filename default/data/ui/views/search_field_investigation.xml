@@ -23,7 +23,7 @@
         <option name="useColors">1</option>
         <!--Setting the token for the hidden panel-->
         <drilldown>
-          <set token="peekaboo">| rest splunk_server=local /servicesNS/-/-/data/ui/views | search eai:data="*$search_input$*" | rename author AS Author eai:acl.sharing AS Permissions eai:appName AS App eai:data AS "Dashboard XML" | fields Author Permissions App "Dashboard XML"</set>
+          <set token="peekaboo">| rest splunk_server=local /servicesNS/-/-/data/ui/views | search eai:data="*$search_input$*" | rename splunk_server AS Host author AS Author eai:acl.sharing AS Permissions eai:appName AS App eai:data AS "Dashboard XML" | fields Host Author Permissions App "Dashboard XML"</set>
         </drilldown>
       </single>
     </panel>
@@ -44,7 +44,7 @@
         <option name="useColors">1</option>
         <!--Setting the token for the hidden panel-->
         <drilldown>
-          <set token="peekaboo">| rest splunk_server=local /services/saved/searches | search search="*$search_input$*" | rename eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App search AS "Saved Search" | fields Author Permissions App "Saved Search"</set>
+          <set token="peekaboo">| rest splunk_server=local /services/saved/searches | search search="*$search_input$*" | rename splunk_server AS Host eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App search AS "Saved Search" | fields Host Author Permissions App "Saved Search"</set>
         </drilldown>
       </single>
     </panel>
@@ -65,7 +65,33 @@
         <option name="useColors">1</option>
         <!--Setting the token for the hidden panel-->
         <drilldown>
-          <set token="peekaboo">| rest splunk_server=local /servicesNS/-/-/saved/eventtypes | search search="*$search_input$*" | rename eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App search AS "Event Type" | fields Author Permissions App "Event Type"</set>
+          <set token="peekaboo">| rest splunk_server=local /servicesNS/-/-/saved/eventtypes | search search="*$search_input$*" | rename splunk_server AS Host eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App search AS "Event Type" | fields Host Author Permissions App "Event Type"</set>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <title>Macros</title>
+      <single>
+        <search>
+          <query>| rest splunk_server=local /servicesNS/-/-/admin/macros 
+| search definition="*$search_input$*"
+| stats count</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="height">285</option>
+        <option name="rangeColors">["0xdc4e41","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+        <!--Setting the token for the hidden panel-->
+        <drilldown>
+          <set token="peekaboo">| rest splunk_server=local /servicesNS/-/-/admin/macros 
+| search definition="*$search_input$*" 
+| rename splunk_server AS Host eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App definition AS Macro 
+| fields Host Author Permissions App Macro</set>
         </drilldown>
       </single>
     </panel>

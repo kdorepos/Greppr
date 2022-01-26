@@ -8,8 +8,8 @@ modtime = 1566007695.109852000
 
 [views/search_field_investigation]
 owner = admin
-version = 7.3.1
-modtime = 1566007845.030533000
+version = 8.2.4
+modtime = 1643169570.228757000
 
 [views/sourcetype_investigation]
 owner = admin
