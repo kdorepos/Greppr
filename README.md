@@ -12,4 +12,4 @@ v3 aims to fulfill the goals below:
 - [ ] Add support for investigation lookup-generating searches
 - [ ] Add support for checking for inefficient searches
 
-Have an idea? [https://github.com/kdorepos/Greppr/issues/new](Put an issue as a feature request!)
+Have an idea? [Put in a feature request!](https://github.com/kdorepos/Greppr/issues/new)
