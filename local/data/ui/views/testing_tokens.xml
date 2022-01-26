@@ -1,0 +1,26 @@
+<dashboard>
+  <label>Testing Tokens</label>
+  <row>
+    <panel>
+      <single>
+        <search>
+          <query>| rest splunk_server=local /services/properties/splunk_monitoring_console_assets/settings/configuredPeers 
+| eval value_length=len(value) 
+| eval mc_mode=if(value_length=0, "standalone","distributed") 
+| fields mc_mode</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <done>
+            <set token="mc_mode">$result.mc_mode$</set>
+          </done>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <html>
+        <h1>monitoring console mode is: $mc_mode$</h1>
+      </html>
+    </panel>
+  </row>
+</dashboard>
