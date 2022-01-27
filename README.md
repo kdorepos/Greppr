@@ -9,7 +9,7 @@ v2 adds the ability to perform investigations into sourcetypes you are ingesting
 
 v3 aims to fulfill the goals below:
 - [x] Add support for macros
-- [ ] Add support for investigation lookup-generating searches
+- [x] Add support for investigation lookup-generating searches
 - [ ] Add support for checking for inefficient searches
 - [ ] Add setup page asking if app is installed on Monitoring Console
 
