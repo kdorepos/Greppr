@@ -1,0 +1,48 @@
+<form theme="dark">
+  <label>Lookup Investigation</label>
+  <fieldset submitButton="true">
+    <input type="text" token="search_input">
+      <label>Input search field:</label>
+    </input>
+  </fieldset>
+  <row depends="$search_input$">
+    <panel>
+      <title>Lookup-generating Searches Containing: $search_input$</title>
+      <table>
+        <title>Click on a row for more information</title>
+        <search>
+          <query>| rest splunk_server=* /services/saved/searches 
+| search search="*$search_input$*" 
+| search search="*outputlookup*"
+| rex field=search "\soutputlookup\s(?&lt;lookup_name&gt;.*)$"
+| rename splunk_server AS Host eai:acl.owner AS Author eai:acl.sharing AS Permissions eai:acl.app AS App search AS "Saved Search" lookup_name AS "Lookup Name"
+| fields Host Author Permissions App "Saved Search" "Lookup Name"</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <set token="peekaboo">$row.Lookup Name$</set>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+  <row depends="$peekaboo$">
+    <panel>
+      <title>More Information</title>
+      <table>
+        <search>
+          <query>| rest /services/data/lookup-table-files
+| search title=$peekaboo$
+| fields splunk_server eai:userName eai:acl.sharing eai:acl.app title
+| rename title AS "Lookup Name" eai:acl.app AS App eai:userName AS Owner eai:acl.sharing AS Permissions splunk_server AS Host</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>
