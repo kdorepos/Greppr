@@ -11,6 +11,6 @@ v3 aims to fulfill the goals below:
 - [x] Add support for macros
 - [x] Add support for investigation lookup-generating searches
 - [ ] Add support for checking for inefficient searches
-- [ ] Add setup page asking if app is installed on Monitoring Console
+- [ ] Add setup page for setting host macro
 
 Have an idea? [Put in a feature request!](https://github.com/kdorepos/Greppr/issues/new)
