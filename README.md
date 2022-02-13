@@ -1,5 +1,5 @@
 # Greppr
-## Important Note: v3 is actively being developed in the master branch. Please see the v2 release for the latest stable version.
+## Important Note: v3 is actively being developed in the v3 branch. Please see the v2 release on the main branch for the latest stable version.
 
 ![readmeLogo](static/readmeLogo.png)
 
